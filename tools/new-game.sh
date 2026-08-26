@@ -21,6 +21,10 @@ fi
 template_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 target_dir="$(dirname "$template_dir")/$slug"
 core_url="$(git -C "$template_dir" config --file .gitmodules submodule.core/robloxcore.url)"
+# The revision the template itself is pinned to. Without this the new title silently takes
+# whatever is on the core's main branch today, and two titles built a week apart run
+# different cores with no record of it.
+core_rev="$(git -C "$template_dir" rev-parse HEAD:core/robloxcore)"
 
 if [ -e "$target_dir" ]; then
 	echo "$target_dir already exists" >&2
@@ -94,6 +98,8 @@ PY
 
 git init -q -b main
 git submodule add -q "$core_url" core/robloxcore
+git -C core/robloxcore checkout -q "$core_rev"
+git add core/robloxcore
 
 # Installed before the first commit so wally.lock is part of it: a lockfile appearing as
 # an untracked file right after scaffolding reads as a half-finished script.
@@ -102,5 +108,5 @@ wally install >/dev/null
 git add -A
 git -c commit.gpgsign=false commit -q -m "Завести тайтл $slug из шаблона"
 
-echo "$slug ready at $target_dir"
+echo "$slug ready at $target_dir (core pinned at ${core_rev:0:7})"
 echo "next: cd $target_dir && wally install && rojo build -o build.rbxl"
