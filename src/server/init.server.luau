@@ -66,14 +66,7 @@ local base = Base.build({
 	parent = workspace,
 })
 
-Base.flow(base, {
-	style = config.world.drop,
-	levelOf = function()
-		return server:visible().level
-	end,
-})
-
-Base.zones(base, {
+Base.streams(base, {
 	zones = config.zones,
 	world = config.world,
 	drop = config.world.drop,
