@@ -110,13 +110,23 @@ def simulate(config: dict[str, Any]) -> dict[str, Any]:
     rebirths = 0
     rows: list[dict[str, Any]] = []
     first_rebirth_time: float | None = None
+    # Ported 1:1 from Progression.gateOf: a gated upgrade is not on the shopping list
+    # until its zone is paid for, and the zone competes on price like anything else.
+    gates = {u: z["id"] for z in config["zones"] for u in z["unlocks"]}
+    zones_owned: set[str] = set()
 
     while elapsed <= SIMULATION_HORIZON_SECONDS:
         targets: list[tuple[int, str, dict[str, Any] | None]] = []
         for upgrade in config["upgrades"]:
+            gate = gates.get(upgrade["id"])
+            if gate is not None and gate not in zones_owned:
+                continue
             level = levels[upgrade["id"]]
             if level < upgrade["maxLevel"]:
                 targets.append((upgrade_cost(upgrade, level), "upgrade", upgrade))
+        for zone in config["zones"]:
+            if zone["id"] not in zones_owned:
+                targets.append((zone["cost"], "zone", zone))
         if first_rebirth_time is None:
             targets.append((rebirth_cost(config, rebirths), "rebirth", None))
 
@@ -141,6 +151,21 @@ def simulate(config: dict[str, Any]) -> dict[str, Any]:
             break  # the table only needs the first rebirth, not what happens after
 
         balance -= cost
+
+        if kind == "zone":
+            zones_owned.add(payload["id"])
+            rows.append(
+                {
+                    "index": len(rows) + 1,
+                    "upgrade_id": payload["id"],
+                    "level": 0,
+                    "cost": cost,
+                    "elapsed": elapsed,
+                    "income_after": income_per_second(config, levels, rebirths),
+                }
+            )
+            continue
+
         levels[payload["id"]] += 1
         rows.append(
             {

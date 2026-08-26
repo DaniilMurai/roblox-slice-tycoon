@@ -69,6 +69,18 @@ local base = Base.build({
 Base.flow(base, {
 	style = config.world.drop,
 	levelOf = function()
-		return server:visibleLevel()
+		return server:visible().level
+	end,
+})
+
+Base.zones(base, {
+	zones = config.zones,
+	world = config.world,
+	drop = config.world.drop,
+	ownedOf = function()
+		return server:visible().zones
+	end,
+	levelOf = function()
+		return server:visible().level
 	end,
 })

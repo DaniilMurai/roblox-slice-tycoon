@@ -22,6 +22,30 @@
         "kind": "IncomeFlat",
         "perLevel": 1
       }
+    },
+    {
+      "id": "slicer",
+      "name": "Slicer",
+      "currency": "coins",
+      "baseCost": 400,
+      "growth": 1.4,
+      "maxLevel": 20,
+      "effect": {
+        "kind": "IncomeFlat",
+        "perLevel": 4
+      }
+    },
+    {
+      "id": "packer",
+      "name": "Packer",
+      "currency": "coins",
+      "baseCost": 6000,
+      "growth": 1.45,
+      "maxLevel": 20,
+      "effect": {
+        "kind": "IncomeFlat",
+        "perLevel": 22
+      }
     }
   ],
   "rebirth": {
@@ -48,11 +72,101 @@
     }
   ],
   "products": [],
+  "zones": [
+    {
+      "id": "slicer_bay",
+      "name": "Slicer Bay",
+      "cost": 600,
+      "currency": "coins",
+      "unlocks": [
+        "slicer"
+      ],
+      "position": [
+        5,
+        0,
+        6
+      ]
+    },
+    {
+      "id": "packing_line",
+      "name": "Packing Line",
+      "cost": 9000,
+      "currency": "coins",
+      "unlocks": [
+        "packer"
+      ],
+      "position": [
+        -5,
+        0,
+        6
+      ]
+    }
+  ],
   "world": {
-    "platform": { "size": [40, 1, 24], "color": [0.25, 0.27, 0.31], "material": "Concrete" },
-    "conveyor": { "size": [26, 0.6, 6], "color": [0.13, 0.14, 0.16], "material": "Metal" },
-    "dropper": { "size": [4, 6, 4], "color": [0.85, 0.45, 0.15], "material": "Metal" },
-    "collector": { "size": [6, 7, 8], "color": [0.18, 0.52, 0.38], "material": "Metal" },
-    "drop": { "size": [1.6, 1.6, 1.6], "color": [0.9, 0.75, 0.25], "material": "SmoothPlastic" }
+    "platform": {
+      "size": [
+        40,
+        1,
+        24
+      ],
+      "color": [
+        0.25,
+        0.27,
+        0.31
+      ],
+      "material": "Concrete"
+    },
+    "conveyor": {
+      "size": [
+        26,
+        0.6,
+        6
+      ],
+      "color": [
+        0.13,
+        0.14,
+        0.16
+      ],
+      "material": "Metal"
+    },
+    "dropper": {
+      "size": [
+        4,
+        6,
+        4
+      ],
+      "color": [
+        0.85,
+        0.45,
+        0.15
+      ],
+      "material": "Metal"
+    },
+    "collector": {
+      "size": [
+        6,
+        7,
+        8
+      ],
+      "color": [
+        0.18,
+        0.52,
+        0.38
+      ],
+      "material": "Metal"
+    },
+    "drop": {
+      "size": [
+        1.6,
+        1.6,
+        1.6
+      ],
+      "color": [
+        0.9,
+        0.75,
+        0.25
+      ],
+      "material": "SmoothPlastic"
+    }
   }
 }
