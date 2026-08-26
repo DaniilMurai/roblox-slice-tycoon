@@ -37,6 +37,15 @@
       "upgrades"
     ]
   },
-  "passes": [],
+  "passes": [
+    {
+      "id": "double_coins",
+      "gamepassId": 1962234262,
+      "effect": {
+        "kind": "IncomeMultiplier",
+        "perLevel": 2
+      }
+    }
+  ],
   "products": []
 }
