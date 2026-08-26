@@ -1,0 +1,7 @@
+# Selene's bundled Roblox std predates require-by-string, which the engine has shipped
+# platform-wide; without this the intra-package `require("../logic/x")` reads as a type error.
+base: roblox
+globals:
+  require:
+    args:
+      - type: any

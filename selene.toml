@@ -1,0 +1,4 @@
+# The whole template is the Roblox layer: pure logic lives in the core, and so does the
+# AC-4 gate that keeps Roblox globals out of it. stringrequire.yml extends the bundled
+# Roblox std, which predates require-by-string.
+std = "stringrequire"

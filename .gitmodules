@@ -1,0 +1,3 @@
+[submodule "core/robloxcore"]
+	path = core/robloxcore
+	url = https://github.com/DaniilMurai/robloxcore.git

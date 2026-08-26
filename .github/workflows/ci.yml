@@ -1,0 +1,23 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: CompeyDev/setup-rokit@v0.2.1
+
+      - run: wally install
+      - run: lune run tests/run.luau
+      - run: selene src
+      - run: stylua --check src tests
+      - run: rojo build -o build.rbxl
