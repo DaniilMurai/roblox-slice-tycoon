@@ -1,8 +1,13 @@
-# roblox-slice-tycoon
+# slice-tycoon
 
-Slice Tycoon — тайтл фабрики Roblox-игр, заведён из
+Slice Tycoon — первый тайтл фабрики Roblox-игр, заведён из
 [`roblox-game-template`](https://github.com/DaniilMurai/roblox-game-template).
-Логика живёт в ядре `core/robloxcore`; здесь только `configs/main.json` и `src/`.
+Логика живёт в ядре `core/robloxcore`; здесь только `configs/main.json` и сборка
+зависимостей в `src/`. Своей арифметики у тайтла нет — это и проверяется грепом
+по `upgradeCost|incomePerSecond|rebirthCost` в `src/`.
+
+Пассы в конфиге пусты намеренно: `gamepassId` появится, когда геймпасс будет реально
+создан на аккаунте (T-20). Фиктивный id уехал бы в прод как неработающая покупка.
 
 ## Проверки
 

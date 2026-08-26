@@ -3,7 +3,7 @@
 registry = "test"
 
 [[package]]
-name = "daniilmurai/roblox-game-template"
+name = "daniilmurai/roblox-slice-tycoon"
 version = "0.1.0"
 dependencies = [["ProfileStore", "lm-loleris/profilestore@1.0.3"]]
 

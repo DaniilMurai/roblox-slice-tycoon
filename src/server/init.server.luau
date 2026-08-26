@@ -26,7 +26,7 @@ local config = validated.value
 local host = Host.new()
 
 local data = DataStoreAdapter.new({
-	storeName = "PlayerData_v1",
+	storeName = "SliceTycoon_v1",
 	config = config,
 	autosaveSeconds = 60,
 	maxAttempts = 5,

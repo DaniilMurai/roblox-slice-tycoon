@@ -1,14 +1,7 @@
 {
-  "slug": "roblox-slice-tycoon",
+  "slug": "slice-tycoon",
   "displayName": "Slice Tycoon",
-  "currencies": [
-    {
-      "id": "coins",
-      "name": "Coins",
-      "short": "c",
-      "starting": 0
-    }
-  ],
+  "currencies": [{ "id": "coins", "name": "Coins", "short": "c", "starting": 0 }],
   "baseIncomePerSecond": 1,
   "upgrades": [
     {
@@ -18,24 +11,14 @@
       "baseCost": 25,
       "growth": 1.35,
       "maxLevel": 25,
-      "effect": {
-        "kind": "IncomeFlat",
-        "perLevel": 1
-      }
+      "effect": { "kind": "IncomeFlat", "perLevel": 1 }
     }
   ],
   "rebirth": {
-    "requirement": {
-      "currency": "coins",
-      "base": 10000,
-      "growth": 1.6
-    },
+    "requirement": { "currency": "coins", "base": 10000, "growth": 1.6 },
     "multiplierPerRebirth": 0.25,
     "multiplierCap": 5,
-    "resets": [
-      "coins",
-      "upgrades"
-    ]
+    "resets": ["coins", "upgrades"]
   },
   "passes": [],
   "products": []
