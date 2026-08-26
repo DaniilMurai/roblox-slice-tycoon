@@ -9,6 +9,7 @@ local Config = require(core.logic.config)
 local Runtime = require(core.runtime.server)
 local Net = require(core.runtime.net)
 local Host = require(core.runtime.host)
+local Base = require(core.runtime.base)
 local DataStoreAdapter = require(core.adapters.datastore)
 local MarketplaceAdapter = require(core.adapters.marketplace)
 local AnalyticsAdapter = require(core.adapters.analytics)
@@ -55,3 +56,12 @@ local server = Runtime.server({
 
 server:start()
 print(`[{config.slug}] server up: {#config.upgrades} upgrades, autosave 60s`)
+
+-- One base at a fixed spot in front of the spawn, turned to face it. Per-player plots need
+-- an allocator that does not exist yet, so every player shares this one.
+Base.build({
+	world = config.world,
+	signText = config.displayName,
+	origin = CFrame.new(0, 0, -30) * CFrame.Angles(0, math.pi, 0),
+	parent = workspace,
+})
