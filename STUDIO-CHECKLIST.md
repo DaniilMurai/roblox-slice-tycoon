@@ -26,16 +26,16 @@ DataStore, ввод игрока.
 
 | # | Проверка | Что должно быть | Итог |
 |---|---|---|---|
-| 1 | Rojo Connect | дерево тайтла доехало: Baseplate, SpawnLocation, `ServerScriptService.Server` | |
-| 2 | Play | в Output `[slice-tycoon] server up: 1 upgrades, autosave 60s` и `[slice-tycoon] loaded <userId>: coins=0` | |
-| 3 | HUD | панель слева сверху: `0 c`, ниже `+1.0/s · rebirth 0`, ниже кнопка `Conveyor lvl 0 · 25` и `Rebirth · 32000` | |
-| 4 | Доход идёт | баланс растёт на 1 в секунду | |
-| 5 | Отказ по деньгам | нажать `Conveyor` при балансе меньше 25 — кнопка на миг показывает `InsufficientFunds`, баланс не меняется | |
-| 6 | Покупка | на 25+ монетах кнопка срабатывает: баланс −25, текст `Conveyor lvl 1 · 33`, доход `+2.0/s` | |
-| 7 | Вторая покупка | списывается ровно 33 (кривая, а не фиксированная цена) | |
+| 1 | Rojo Connect | дерево тайтла доехало: Baseplate, SpawnLocation, `ServerScriptService.Server` |✅ 2026-08-26 — диалог Confirm sync принят, `Packages.robloxcore` и `Server` доехали |
+| 2 | Play | в Output `[slice-tycoon] server up: 1 upgrades, autosave 60s` и `[slice-tycoon] loaded <userId>: coins=0` |✅ `[slice-tycoon] server up: 1 upgrades, autosave 60s`, `loaded 7724090073: coins=0`; среда готова: `Roblox API services available` |
+| 3 | HUD | панель слева сверху: `0 c`, ниже `+1.0/s · rebirth 0`, ниже кнопка `Conveyor lvl 0 · 25` и `Rebirth · 32000` |✅ `0 c`, `+1.0/s · rebirth 0`, `Conveyor lvl 0 · 25`, `Rebirth · 32000` |
+| 4 | Доход идёт | баланс растёт на 1 в секунду |✅ 1/с на старте, 4/с после трёх апгрейдов |
+| 5 | Отказ по деньгам | нажать `Conveyor` при балансе меньше 25 — кнопка на миг показывает `InsufficientFunds`, баланс не меняется |✅ красный `InsufficientFunds`, баланс 49 не изменился |
+| 6 | Покупка | на 25+ монетах кнопка срабатывает: баланс −25, текст `Conveyor lvl 1 · 33`, доход `+2.0/s` |✅ −25, `Conveyor lvl 1 · 33`, доход `+2.0/s` |
+| 7 | Вторая покупка | списывается ровно 33 (кривая, а не фиксированная цена) |✅ кривая 25 → 33 → 45 → 61, как считает `Economy.upgradeCost` |
 | 8 | **AC-6** | Stop → в Output `[slice-tycoon] saving <userId>: coins=<N> conveyor=<L>`. Снова Play → `loaded <userId>: coins=<тот же N> conveyor=<тот же L>`, HUD совпадает | |
 | 9 | **AC-2** | не выходя, изменить в `src/server/init.server.luau` текст финального `print`, сохранить; Stop → Play — в Output новая строка | |
-| 10 | Ребёрт недоступен | кнопка `Rebirth · 32000` серая, нажатие даёт `RebirthNotAffordable`, состояние не меняется | |
+| 10 | Ребёрт недоступен | кнопка `Rebirth · 32000` серая, нажатие даёт `RebirthNotAffordable`, состояние не меняется |✅ красный `RebirthNotAffordable`, баланс и уровень не изменились |
 
 Расхождение чисел в `saving` и `loaded` — баг сохранения, а не округление.
 
