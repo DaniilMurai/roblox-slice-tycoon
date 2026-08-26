@@ -38,6 +38,7 @@ rsync -a \
 	--exclude 'ServerPackages' \
 	--exclude 'build.rbxl' \
 	--exclude '.env' \
+	--exclude 'wally.lock' \
 	"$template_dir/" "$target_dir/"
 
 cd "$target_dir"
@@ -58,6 +59,11 @@ pathlib.Path("default.project.json").write_text(json.dumps(project, indent=2) + 
 
 wally = pathlib.Path("wally.toml")
 wally.write_text(wally.read_text().replace("roblox-game-template", slug, 1))
+
+checklist = pathlib.Path("STUDIO-CHECKLIST.md")
+checklist.write_text(
+    checklist.read_text().replace("__SLUG__", slug).replace("__DISPLAY_NAME__", display_name)
+)
 
 pathlib.Path("README.md").write_text(f"""# {slug}
 
@@ -88,6 +94,11 @@ PY
 
 git init -q -b main
 git submodule add -q "$core_url" core/robloxcore
+
+# Installed before the first commit so wally.lock is part of it: a lockfile appearing as
+# an untracked file right after scaffolding reads as a half-finished script.
+wally install >/dev/null
+
 git add -A
 git -c commit.gpgsign=false commit -q -m "Завести тайтл $slug из шаблона"
 
