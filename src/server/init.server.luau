@@ -9,7 +9,7 @@ local Config = require(core.logic.config)
 local Runtime = require(core.runtime.server)
 local Net = require(core.runtime.net)
 local Host = require(core.runtime.host)
-local Base = require(core.runtime.base)
+local Plots = require(core.runtime.plots)
 local DataStoreAdapter = require(core.adapters.datastore)
 local MarketplaceAdapter = require(core.adapters.marketplace)
 local AnalyticsAdapter = require(core.adapters.analytics)
@@ -40,6 +40,21 @@ local data = DataStoreAdapter.new({
 	end,
 })
 
+-- A row of bases in front of the spawn, turned to face it. Built before the server starts:
+-- the first player can be inside the game before the first frame of the row exists.
+local plots = Plots.new({
+	world = config.world,
+	zones = config.zones,
+	count = 6,
+	origin = CFrame.new(0, 0, -60) * CFrame.Angles(0, math.pi, 0),
+	parent = workspace,
+	vacantSign = config.displayName,
+	nameOf = function(userId)
+		local player = host:playerOf(userId)
+		return if player then player.DisplayName else "Player"
+	end,
+})
+
 local server = Runtime.server({
 	config = config,
 	data = data,
@@ -48,6 +63,7 @@ local server = Runtime.server({
 	presence = host,
 	transport = Net.new(),
 	scheduler = host,
+	world = plots,
 	clock = function()
 		return host:clock()
 	end,
@@ -56,24 +72,3 @@ local server = Runtime.server({
 
 server:start()
 print(`[{config.slug}] server up: {#config.upgrades} upgrades, autosave 60s`)
-
--- One base at a fixed spot in front of the spawn, turned to face it. Per-player plots need
--- an allocator that does not exist yet, so every player shares this one.
-local base = Base.build({
-	world = config.world,
-	signText = config.displayName,
-	origin = CFrame.new(0, 0, -30) * CFrame.Angles(0, math.pi, 0),
-	parent = workspace,
-})
-
-Base.streams(base, {
-	zones = config.zones,
-	world = config.world,
-	drop = config.world.drop,
-	ownedOf = function()
-		return server:visible().zones
-	end,
-	levelOf = function()
-		return server:visible().level
-	end,
-})
