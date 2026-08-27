@@ -18,10 +18,13 @@ import math
 import sys
 from typing import Any
 
-# Same 15 min / 3 h corridor as plan.md AC-8.
+# plan.md AC-8's 15 min / 3 h corridor, narrowed by T-40 to a window with a floor.
+# A rebirth reached too EARLY is a balance bug too: the multiplier is meant to be the
+# reward for a session, and a twenty-minute prestige loop turns it into a click.
 FIRST_WINDOW_SECONDS = 15 * 60
 FIRST_WINDOW_MIN_UPGRADES = 5
-REBIRTH_DEADLINE_SECONDS = 3 * 60 * 60
+REBIRTH_FLOOR_SECONDS = 90 * 60
+REBIRTH_DEADLINE_SECONDS = 150 * 60
 
 # Upper bound so a stalled economy (income never enough) fails fast instead of hanging.
 SIMULATION_HORIZON_SECONDS = 48 * 60 * 60
@@ -201,6 +204,11 @@ def check_corridor(result: dict[str, Any]) -> list[str]:
         reasons.append(
             f"first rebirth reached at {format_duration(first_rebirth)}, "
             f"deadline is {format_duration(REBIRTH_DEADLINE_SECONDS)}"
+        )
+    elif first_rebirth < REBIRTH_FLOOR_SECONDS:
+        reasons.append(
+            f"first rebirth reached at {format_duration(first_rebirth)}, "
+            f"no sooner than {format_duration(REBIRTH_FLOOR_SECONDS)}"
         )
     return reasons
 

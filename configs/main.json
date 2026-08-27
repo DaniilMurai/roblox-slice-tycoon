@@ -51,7 +51,7 @@
   "rebirth": {
     "requirement": {
       "currency": "coins",
-      "base": 32000,
+      "base": 200000,
       "growth": 1.6
     },
     "multiplierPerRebirth": 0.25,
